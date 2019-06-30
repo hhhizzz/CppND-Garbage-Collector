@@ -13,12 +13,21 @@ otherwise. */
   /* If memPtr is pointing to an allocated
 array, then arraySize contains its size */
   unsigned arraySize;  // size of array
-  // Here, mPtr points to the allocated memory.
-  // If this is an array, then size specifies
-  // the size of the array.
+                       // Here, mPtr points to the allocated memory.
+                       // If this is an array, then size specifies
+                       // the size of the array.
 
-  PtrDetails(void) {
-    // TODO: Implement PtrDetails
+  PtrDetails() { PtrDetails(NULL, 0); }
+
+  PtrDetails(T *ptr, unsigned size) {
+    // std::cout << "new ptrDetail: " << ptr << " the size is " << size
+    //           << std::endl;
+    this->refcount = 1;
+    if (size > 0) {
+      this->isArray = true;
+    }
+    this->arraySize = size;
+    this->memPtr = ptr;
   }
 };
 // Overloading operator== allows two class objects to be compared.
@@ -26,4 +35,5 @@ array, then arraySize contains its size */
 template <class T>
 bool operator==(const PtrDetails<T> &ob1, const PtrDetails<T> &ob2) {
   // TODO: Implement operator==
+  return (ob1.memPtr == ob2.memPtr);
 }
